@@ -72,7 +72,7 @@ type ProbeInfo_Stream struct {
 	Quarter_sample       string
 	Divx_packed          string
 	R_frame_rate         string
-	Is_avc               *bool
+	Is_avc               *string
 	Avg_frame_rate       string
 	Time_base            string
 	Start_pts            int
