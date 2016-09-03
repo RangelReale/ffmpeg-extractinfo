@@ -33,12 +33,12 @@ func (inf *ProbeInfo_Format) GetDuration() float32 {
 	return float32(ret)
 }
 
-func (inf *ProbeInfo_Format) GetSize() int {
-	ret, err := strconv.ParseInt(inf.Size, 10, 32)
+func (inf *ProbeInfo_Format) GetSize() int64 {
+	ret, err := strconv.ParseInt(inf.Size, 10, 64)
 	if err != nil {
 		return -1
 	}
-	return int(ret)
+	return ret
 }
 
 func (inf *ProbeInfo_Format) GetBitRate() int {
