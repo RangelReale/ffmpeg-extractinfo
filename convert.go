@@ -14,7 +14,28 @@ const (
 	CScaleMode_Exact                       = 3
 )
 
-func (i *Info) Convert(filename string, outfilename string, width int, height int, scalemode Convert_ScaleMode,
+func (i *Info) Convert(filename string, outfilename string, moreargs []string) error {
+	args := []string{
+		"-y",
+		//"-hide_banner",
+		"-i",
+		filename,
+	}
+	if moreargs != nil {
+		args = append(args, moreargs...)
+	}
+	args = append(args, outfilename)
+	cmd := exec.Command(i.FFMpeg.exe_ffmpeg, args...)
+
+	err := i.execCmd(cmd)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (i *Info) ConvertAndResize(filename string, outfilename string, width int, height int, scalemode Convert_ScaleMode,
 	moreargs []string) error {
 	sscale := ""
 	if scalemode == CScaleMode_LetterBox {
