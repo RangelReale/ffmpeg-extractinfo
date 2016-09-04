@@ -11,6 +11,11 @@ import (
 	"time"
 )
 
+type Dimension struct {
+	Width  int
+	Height int
+}
+
 type ProbeInfo_Format struct {
 	Filename         string
 	Nb_streams       int
@@ -140,6 +145,20 @@ func (is *ProbeInfo_Stream) GetFrames() int {
 type ProbeInfo struct {
 	Format  *ProbeInfo_Format
 	Streams []*ProbeInfo_Stream
+}
+
+func (inf *ProbeInfo) GetDimension() *Dimension {
+	if inf.Streams != nil {
+		for _, s := range inf.Streams {
+			if s.Codec_type == "video" {
+				return &Dimension{
+					Width:  s.Width,
+					Height: s.Height,
+				}
+			}
+		}
+	}
+	return nil
 }
 
 func (i *Info) ProbeString(filename string) (string, error) {
